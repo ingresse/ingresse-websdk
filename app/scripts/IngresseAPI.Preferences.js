@@ -4,7 +4,7 @@ angular.module('ingresseSDK', [])
 .provider('ingresseApiPreferences', function () {
   var apikey, privatekey, companyid;
   var prefHost = 'https://api.ingresse.com';
-  PagarMe.encryption_key = 'ek_live_lMsy9iABVbZrtgpd7Xpb9MMFgvjTYQ';
+  PagarMe.encryption_key = 'ek_live_kvF2lgSrlQpz3QlNZj44ODmEIeONfS';
 
   return {
     setPublicKey: function(key){
@@ -17,7 +17,7 @@ angular.module('ingresseSDK', [])
       prefHost = host;
 
       if (prefHost === 'https://api.ingresse.com' || prefHost === 'https://apipre.ingresse.com') {
-        PagarMe.encryption_key = 'ek_live_lMsy9iABVbZrtgpd7Xpb9MMFgvjTYQ';
+        PagarMe.encryption_key = 'ek_live_kvF2lgSrlQpz3QlNZj44ODmEIeONfS';
       }
 
       if (prefHost === 'https://hml-api.ingresse.com' || prefHost === 'https://hml-api-2.ingresse.com') {
@@ -55,7 +55,7 @@ angular.module('ingresseSDK', [])
           this._host = host;
 
           if (this._host === 'https://api.ingresse.com' || this._host === 'https://apipre.ingresse.com') {
-            PagarMe.encryption_key = 'ek_live_lMsy9iABVbZrtgpd7Xpb9MMFgvjTYQ';
+            PagarMe.encryption_key = 'ek_live_kvF2lgSrlQpz3QlNZj44ODmEIeONfS';
           }
 
           if (this._host === 'https://hml-api.ingresse.com' ||
@@ -107,4 +107,3 @@ angular.module('ingresseSDK', [])
     }
   };
 });
-
