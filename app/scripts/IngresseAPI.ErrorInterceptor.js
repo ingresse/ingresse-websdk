@@ -213,6 +213,11 @@ angular.module('ingresseSDK')
               return $q.reject(error);
             }
 
+            if (error.code === 3030) {
+              error.message = 'Não encontramos este e-mail em nossa plataforma. Certifique-se de que ele foi utilizado para criar uma conta.';
+              return $q.reject(error);
+            }
+
             if (error.code === 3036) {
               error.message = 'Desculpe, somente é possível estornar transações aprovadas.';
               return $q.reject(error);
