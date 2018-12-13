@@ -118,6 +118,11 @@ angular.module('ingresseSDK')
               return $q.reject(error);
             }
 
+            if (error.code === 1133) {
+              error.message = 'A quantidade de endereços de e-mail informada excede o limite padrão.';
+              return $q.reject(error);
+            }
+
             if (error.code === 2004) {
               error.message = 'Você já acessou a última página';
               return $q.reject(error);
