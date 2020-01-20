@@ -864,6 +864,10 @@ angular.module('ingresseSDK')
     return API._post('shop', null, filters, postObject);
   };
 
+  API.updateTransaction = function (transactionId, filters, payload) {
+    return API._put('shop', transactionId, filters, payload);
+  };
+
     API.payReservation = function (eventId, userId, token, transactionId, tickets, paymentMethod, creditCard, installments, passkey, postback) {
         var deferred = $q.defer();
         var self = this;
