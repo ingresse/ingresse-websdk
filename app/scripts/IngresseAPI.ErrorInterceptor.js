@@ -30,8 +30,7 @@ angular.module('ingresseSDK')
             }
 
             var error = new Error();
-            error.code = response.data.responseError.code;
-            error.message = response.data.responseError.message;
+            error = angular.merge(error, response.data.responseError);
 
             if (error.code === 56) {
               error.message = 'A senha atual não está correta.';
