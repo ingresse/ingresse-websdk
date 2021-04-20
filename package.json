@@ -1,6 +1,6 @@
 {
   "name": "ingresse-websdk",
-  "version": "7.41.3",
+  "version": "7.42.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
@@ -41,6 +41,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test --force"
+    "test": "grunt test --force",
+    "build": "grunt build --force"
   }
 }

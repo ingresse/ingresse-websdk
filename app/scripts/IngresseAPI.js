@@ -70,16 +70,28 @@ angular.module('ingresseSDK')
   * @return {object}
   */
   API._getRequestToken = function () {
+    var credentials = IngresseApiUserService.getCredentials();
+    var usertoken   = (credentials && credentials.token ? credentials.token : '');
+
+    return (!usertoken ? {} : {
+      usertoken: usertoken,
+    });
+  };
+
+  /**
+  * Get Requests Headers
+  *
+  * @return {object}
+  */
+  API._getRequestHeaders = function () {
     var credentials   = IngresseApiUserService.getCredentials();
-    var requestParams = {
-      usertoken: (credentials && credentials.token ? credentials.token : ''),
-    };
+    var authorization = ((credentials && credentials.jwt) ? ('Bearer ' + credentials.jwt) : '');
 
-    if (!requestParams.usertoken) {
-      return {};
-    }
-
-    return requestParams;
+    return (!authorization ? {} : {
+      headers: {
+        Authorization: authorization,
+      },
+    });
   };
 
   /**
@@ -92,7 +104,7 @@ angular.module('ingresseSDK')
    * @return {string} url
    */
   API._getUrl = function (method, identifier, parameters) {
-    var userToken = ((parameters && parameters.usertoken) ? API._getRequestToken() : {});
+    var userToken = API._getRequestToken();
     var url       = ingresseApiPreferences.getHost() + '/';
 
     if (method) {
@@ -109,11 +121,13 @@ angular.module('ingresseSDK')
     return url;
   };
 
-  API._get = function (method, identifier, parameters) {
+  API._get = function (method, identifier, parameters, options) {
     var deferred    = $q.defer();
     var endpointUrl = API._getUrl(method, identifier, parameters);
+    var reqHeaders  = API._getRequestHeaders();
+    var reqOptions  = angular.merge({}, reqHeaders, (options || {}));
 
-    $http.get(endpointUrl)
+    $http.get(endpointUrl, reqOptions)
       .then(function (response) {
         response = response.data;
 
@@ -130,11 +144,13 @@ angular.module('ingresseSDK')
     return deferred.promise;
   };
 
-  API._post = function (method, identifier, parameters, postParameters) {
+  API._post = function (method, identifier, parameters, postParameters, options) {
     var deferred    = $q.defer();
     var endpointUrl = API._getUrl(method, identifier, parameters);
+    var reqHeaders  = API._getRequestHeaders();
+    var reqOptions  = angular.merge({}, reqHeaders, (options || {}));
 
-    $http.post(endpointUrl, postParameters)
+    $http.post(endpointUrl, postParameters, reqOptions)
       .then(function (response) {
         response = response.data;
 
@@ -147,11 +163,13 @@ angular.module('ingresseSDK')
     return deferred.promise;
   };
 
-  API._put = function (method, identifier, parameters, postParameters) {
+  API._put = function (method, identifier, parameters, postParameters, options) {
     var deferred    = $q.defer();
     var endpointUrl = API._getUrl(method, identifier, parameters);
+    var reqHeaders  = API._getRequestHeaders();
+    var reqOptions  = angular.merge({}, reqHeaders, (options || {}));
 
-    $http.put(endpointUrl, postParameters)
+    $http.put(endpointUrl, postParameters, reqOptions)
       .then(function (response) {
         response = response.data;
 
@@ -164,11 +182,13 @@ angular.module('ingresseSDK')
     return deferred.promise;
   };
 
-  API._delete = function (method, identifier, parameters) {
+  API._delete = function (method, identifier, parameters, options) {
     var deferred    = $q.defer();
     var endpointUrl = API._getUrl(method, identifier, parameters);
+    var reqHeaders  = API._getRequestHeaders();
+    var reqOptions  = angular.merge({}, reqHeaders, (options || {}));
 
-    $http.delete(endpointUrl)
+    $http.delete(endpointUrl, reqOptions)
       .then(function (response) {
         response = response.data;
 
